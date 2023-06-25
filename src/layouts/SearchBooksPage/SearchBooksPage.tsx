@@ -15,7 +15,7 @@ export const SearchBooksPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [search, setSearch] = useState('');
     const [searchUrl, setSearchUrl] = useState('');
-    const[categorySelection,setCategorySelection]=useState('Book category');
+    const [categorySelection, setCategorySelection] = useState('Book category');
 
     useEffect(() => {
         const fetchBooks = async () => {
@@ -26,7 +26,8 @@ export const SearchBooksPage = () => {
             if (searchUrl === '') {
                 url = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
             } else {
-                url = baseUrl + searchUrl;
+                let searchWithPage = searchUrl.replace('<pageNumber>', `${currentPage - 1}`);
+                url = baseUrl + searchWithPage;
             }
 
             const response = await fetch(url);
@@ -84,25 +85,28 @@ export const SearchBooksPage = () => {
     }
 
     const searchHandleChange = () => {
+        setCurrentPage(1);
         if (search === '') {
             setSearchUrl('');
         } else {
-            setSearchUrl(`/search/findByTitleContaining?title=${search}&page=0&size=${booksPerPage}`);
+            setSearchUrl(`/search/findByTitleContaining?title=${search}&page=<pageNumber>&size=${booksPerPage}`);
         }
+        setCategorySelection('Book category');
     }
 
-    const categoryField=(value:string)=>{
-        if(
-            value.toLowerCase()==='fe'||
-            value.toLowerCase()==='be' ||
-            value.toLowerCase()==='data'||
-            value.toLowerCase()==='devops'
-        ){
+    const categoryField = (value: string) => {
+        setCurrentPage(1);
+        if (
+            value.toLowerCase() === 'fe' ||
+            value.toLowerCase() === 'be' ||
+            value.toLowerCase() === 'data' ||
+            value.toLowerCase() === 'devops'
+        ) {
             setCategorySelection(value);
-            setSearchUrl(`/search/findByCategory?category=${value}&page=0&size=${booksPerPage}`);
-        }else{
+            setSearchUrl(`/search/findByCategory?category=${value}&page=<pageNumber>&size=${booksPerPage}`);
+        } else {
             setCategorySelection('All');
-            setSearchUrl(`?page=0&size=${booksPerPage}`);
+            setSearchUrl(`?page=<pageNumber>&size=${booksPerPage}`);
         }
     }
 
@@ -137,27 +141,27 @@ export const SearchBooksPage = () => {
                                 </button>
 
                                 <ul className="dropdown-menu" aria-aria-labelledby="dropdownMenuButton1">
-                                    <li onClick={()=>categoryField('All')}>
+                                    <li onClick={() => categoryField('All')}>
                                         <a className="dropdown-item" href="#">
                                             All
                                         </a>
                                     </li>
-                                    <li onClick={()=>categoryField('FE')}>
+                                    <li onClick={() => categoryField('FE')}>
                                         <a className="dropdown-item" href="#">
                                             Front End
                                         </a>
                                     </li>
-                                    <li onClick={()=>categoryField('BE')}>
+                                    <li onClick={() => categoryField('BE')}>
                                         <a className="dropdown-item" href="#">
                                             Back End
                                         </a>
                                     </li>
-                                    <li onClick={()=>categoryField('Data')}>
+                                    <li onClick={() => categoryField('Data')}>
                                         <a className="dropdown-item" href="#">
                                             Data
                                         </a>
                                     </li>
-                                    <li onClick={()=>categoryField('Devops')}>
+                                    <li onClick={() => categoryField('Devops')}>
                                         <a className="dropdown-item" href="#">
                                             DevOps
                                         </a>
