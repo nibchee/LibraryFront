@@ -4,6 +4,7 @@ import { SpinnerLoading } from "../Utils/SpinnerLoading";
 import { StarReview } from "../Utils/StarReviews";
 import { CheckoutAndReviewBox } from "./CheckOutAndReviewBox";
 import ReviewModel from "../../models/ReviewModel";
+import { LatestReviews } from "./LatestReviews";
 
 export const BookCheckOutPage = () => {
 
@@ -56,7 +57,7 @@ export const BookCheckOutPage = () => {
     //creating useeffect for Reviews
     useEffect(() => {
         const fetchBookReviews = async () => {
-            const reviewUrl: string = `http://localhost:8080/api/reviews/search/findByBookId?BookId=${bookId}`;
+            const reviewUrl: string = `http://localhost:8080/api/reviews/search/findBookById?bookId=${bookId}`;
 
             const responseReviews = await fetch(reviewUrl);
 
@@ -75,11 +76,11 @@ export const BookCheckOutPage = () => {
             for (const key in responseData) {
                 loadReviews.push({
                     id: responseData[key].id,
-                    userEamil: responseData[key].userEamil,
+                    userEmail: responseData[key].userEmail,
                     date: responseData[key].date,
                     rating: responseData[key].rating,
                     book_id: responseData[key].book_id,
-                    reviewDescrription: responseData[key].reviewDescrription
+                    reviewDescription: responseData[key].reviewDescription
                 });
                 weightedStarReviews = weightedStarReviews + responseData[key].rating;
             }
@@ -134,12 +135,13 @@ export const BookCheckOutPage = () => {
                             <h2>{book?.title}</h2>
                             <h5 className="text-primary">{book?.author}</h5>
                             <p className="lead">{book?.description}</p>
-                            <StarReview rating={4} size={32} />
+                            <StarReview rating={totalStars} size={32} />
                         </div>
                     </div>
                     <CheckoutAndReviewBox book={book} mobile={false} />
                 </div>
                 <hr />
+                <LatestReviews reviews={reviews} bookId={book?.id} mobile={false} />
             </div>
             {/*mobile*/}
             <div className="container d-lg-none mt-5">
@@ -157,10 +159,11 @@ export const BookCheckOutPage = () => {
                         <h2>{book?.title}</h2>
                         <h5 className='text-primary'>{book?.author}</h5>
                         <p className="lead">{book?.description}</p>
-                        <StarReview rating={4} size={32} />
+                        <StarReview rating={totalStars} size={32} />
                     </div>
                 </div>
                 <CheckoutAndReviewBox book={book} mobile={true} />
+                <LatestReviews reviews={reviews} bookId={book?.id} mobile={true} />
             </div>
             <hr />
         </div>);

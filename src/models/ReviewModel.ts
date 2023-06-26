@@ -1,18 +1,18 @@
 class ReviewModel {
     id: number;
-    userEamil: string;
+    userEmail: string;
     date: string;
     rating: number;
     book_id: number;
-    reviewDescrription?: string;
+    reviewDescription?: string;
 
     constructor(id: number, userEamil: string, date: string, rating: number, book_id: number, reviewDescription: string) {
         this.id = id;
-        this.userEamil = userEamil;
+        this.userEmail = userEamil;
         this.date = date;
         this.rating = rating;
         this.book_id = book_id;
-        this.reviewDescrription = reviewDescription;
+        this.reviewDescription = reviewDescription;
 
     }
 }
