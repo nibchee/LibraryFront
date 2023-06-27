@@ -27,3 +27,5 @@ const OktaSignInWidget = ({ onSuccess, onError }) => {
         </div>
     )
 }
+
+export default OktaSignInWidget;
