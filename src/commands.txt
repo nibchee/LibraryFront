@@ -1,0 +1,10 @@
+//Command for Creating React App
+npx create-react-app react-library --template typescript
+npm start
+//Installing React Router
+npm install react-router-dom@5
+npm i --save-dev @types/react-router-dom
+//Installing Widget
+npm install @okta/okta-signin-widget@6.3.3
+//Intsalling dependencies for okta via React
+npm install @okta/okta-react@6.4.3        
