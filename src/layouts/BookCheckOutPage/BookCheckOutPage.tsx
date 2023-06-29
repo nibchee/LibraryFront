@@ -166,6 +166,7 @@ export const BookCheckOutPage = () => {
             setHttpError(error.message);
         })
     }, [authState]);
+
     //if API taking time
     if (isLoading || isLoadingReview || isLoadingCurrentLoanCount || isLoadingBookCheckOut) {
         return (
@@ -203,7 +204,7 @@ export const BookCheckOutPage = () => {
                             <StarReview rating={totalStars} size={32} />
                         </div>
                     </div>
-                    <CheckoutAndReviewBox book={book} mobile={false} currentLoansCount={currentLoansCount} />
+                    <CheckoutAndReviewBox book={book} mobile={false} currentLoansCount={currentLoansCount} isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckedOut}/>
                 </div>
                 <hr />
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={false} />
@@ -227,7 +228,7 @@ export const BookCheckOutPage = () => {
                         <StarReview rating={totalStars} size={32} />
                     </div>
                 </div>
-                <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount} />
+                <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount} isAuthenticated={authState?.isAuthenticated} isCheckedOut={isCheckedOut}/>
                 <LatestReviews reviews={reviews} bookId={book?.id} mobile={true} />
             </div>
             <hr />
