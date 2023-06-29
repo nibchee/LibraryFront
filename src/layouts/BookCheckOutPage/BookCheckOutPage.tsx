@@ -24,6 +24,10 @@ export const BookCheckOutPage = () => {
     const [currentLoansCount, setCurrentLoansCount] = useState(0);
     const [isLoadingCurrentLoanCount, setIsLoadingCurrentLoansCount] = useState(true);
 
+    //Is Book Check Out by user Signed In?
+    const [isCheckedOut, setIsCheckedOut] = useState(false);
+    const [isLoadingBookCheckOuut, setIsLoadingBookCheckedOut] = useState(true);
+
     //this stores the book id of which we need information eg //locahost/bookcheckout/1
     const bookId = (window.location.pathname).split('/')[2];
 
@@ -134,6 +138,16 @@ export const BookCheckOutPage = () => {
         })
     }, [authState]);
 
+    //useEffect for CheckingOut Book
+    useEffect(() => {
+        const fetchUserCheckedOutBook = async () => {
+
+        }
+        fetchUserCheckedOutBook().catch((error: any) => {
+            setIsLoadingBookCheckedOut(false);
+            setHttpError(error.message);
+        })
+    }, [authState]);
     //if API taking time
     if (isLoading || isLoadingReview || isLoadingCurrentLoanCount) {
         return (
