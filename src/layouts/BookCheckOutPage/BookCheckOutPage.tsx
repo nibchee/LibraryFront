@@ -26,7 +26,7 @@ export const BookCheckOutPage = () => {
 
     //Is Book Check Out by user Signed In?
     const [isCheckedOut, setIsCheckedOut] = useState(false);
-    const [isLoadingBookCheckOuut, setIsLoadingBookCheckedOut] = useState(true);
+    const [isLoadingBookCheckOut, setIsLoadingBookCheckedOut] = useState(true);
 
     //this stores the book id of which we need information eg //locahost/bookcheckout/1
     const bookId = (window.location.pathname).split('/')[2];
@@ -141,7 +141,25 @@ export const BookCheckOutPage = () => {
     //useEffect for CheckingOut Book
     useEffect(() => {
         const fetchUserCheckedOutBook = async () => {
+            if (authState && authState.isAuthenticated) {
+                const url = `http://localhost:8080/api/books/secure/ischeckout/byuser/?bookId=${bookId}`;
+                const requestOptions = {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${authState.accessToken?.accessToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                };
+                const bookCheckedOut = await fetch(url, requestOptions);
 
+                if (!bookCheckedOut.ok) {
+                    throw new Error('Something went wrong!');
+                }
+
+                const bookCheckedOutResponseJson = await bookCheckedOut.json();
+                setIsCheckedOut(bookCheckedOutResponseJson);
+            }
+            setIsLoadingBookCheckedOut(false);
         }
         fetchUserCheckedOutBook().catch((error: any) => {
             setIsLoadingBookCheckedOut(false);
@@ -149,7 +167,7 @@ export const BookCheckOutPage = () => {
         })
     }, [authState]);
     //if API taking time
-    if (isLoading || isLoadingReview || isLoadingCurrentLoanCount) {
+    if (isLoading || isLoadingReview || isLoadingCurrentLoanCount || isLoadingBookCheckOut) {
         return (
             <SpinnerLoading />
         )
