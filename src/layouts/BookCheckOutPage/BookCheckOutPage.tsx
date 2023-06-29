@@ -5,8 +5,10 @@ import { StarReview } from "../Utils/StarReviews";
 import { CheckoutAndReviewBox } from "./CheckOutAndReviewBox";
 import ReviewModel from "../../models/ReviewModel";
 import { LatestReviews } from "./LatestReviews";
+import { useOktaAuth } from "@okta/okta-react";
 
 export const BookCheckOutPage = () => {
+    const { authState } = useOktaAuth();
 
     //creating states
     const [book, setBook] = useState<BookModel>();
@@ -17,6 +19,10 @@ export const BookCheckOutPage = () => {
     const [reviews, setReviews] = useState<ReviewModel[]>([]);
     const [totalStars, setTotalStars] = useState(0);
     const [isLoadingReview, setIsLoadingReview] = useState(true);
+
+    //Loans Count State
+    const [currentLoansCount, setCurrentLoansCount] = useState(0);
+    const [isLoadingCurrentLoanCount, setIsLoadingCurrentLoansCount] = useState(true);
 
     //this stores the book id of which we need information eg //locahost/bookcheckout/1
     const bookId = (window.location.pathname).split('/')[2];
@@ -101,6 +107,17 @@ export const BookCheckOutPage = () => {
 
     }, []);
 
+    //useEffect for Loans
+    useEffect(() => {
+        const fetchUserCurrentLoansCount = async () => {
+
+        }
+        fetchUserCurrentLoansCount().catch((error: any) => {
+            setIsLoadingCurrentLoansCount(false);
+            setHttpError(error.message);
+        })
+    }, [authState]);
+    
     //if API taking time
     if (isLoading || isLoadingReview) {
         return (
