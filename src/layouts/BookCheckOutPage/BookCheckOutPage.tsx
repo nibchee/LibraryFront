@@ -72,7 +72,7 @@ export const BookCheckOutPage = () => {
     //creating useeffect for Reviews
     useEffect(() => {
         const fetchBookReviews = async () => {
-            const reviewUrl: string = `http://localhost:8080/api/reviews/search/findBookById?bookId=${bookId}`;
+            const reviewUrl: string = `http://localhost:8080/api/reviews/search/findByBookId?bookId=${bookId}`;
 
             const responseReviews = await fetch(reviewUrl);
 
@@ -135,6 +135,7 @@ export const BookCheckOutPage = () => {
                 const userReviewResponseJson = await userReview.json();
                 setIsReviewLeft(userReviewResponseJson);
             }
+
             setIsLoadingUserReview(false);
         }
         fetchUserReviewBook().catch((error: any) => {
