@@ -6,7 +6,7 @@ import { CheckoutAndReviewBox } from "./CheckOutAndReviewBox";
 import ReviewModel from "../../models/ReviewModel";
 import { LatestReviews } from "./LatestReviews";
 import { useOktaAuth } from "@okta/okta-react";
-import { error } from "console";
+
 
 export const BookCheckOutPage = () => {
     const { authState } = useOktaAuth();
