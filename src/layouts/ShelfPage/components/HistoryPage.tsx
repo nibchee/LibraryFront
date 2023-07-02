@@ -81,7 +81,7 @@ export const HistoryPage = () => {
                                                     width='123' height='196' alt='Default' />
                                             }
                                         </div>
-                                        <div className="d-lg-noned-flex justify-content-center align-items-center">
+                                        <div className="d-lg-none d-flex justify-content-center align-items-center">
                                             {history.img ?
                                                 <img src={history.img} width='123' height='197' alt='Book' />
                                                 :
