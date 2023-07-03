@@ -19,30 +19,48 @@ export const Messages = () => {
 
     useEffect(() => {
         const fetchUserMessages = async () => {
-
-        }
-        fetchUserMessages().catch((error: any) => {
+            if (authState && authState?.isAuthenticated) {
+                const url = `http://localhost:8080/api/messages/search/findByUserEmail/?userEmail=${authState?.accessToken?.claims.sub}&page=${currentPage - 1}&size=${messagesPerPage}`;
+                const requestOptions = {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${authState?.accessToken?.accessToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                };
+                const messageResponse = await fetch(url, requestOptions);
+                if (!messageResponse.ok) {
+                    throw new Error('Something went wrong!');
+                }
+                const messageResponseJson = await messageResponse.json();
+                setMessages(messageResponseJson._embedded.messages);
+                setTotalPages(messageResponseJson.page.totalPages);
+            }
             setIsLoadingMessages(false);
-            setHttpError(error.messages);
-        })
+        }
+    }
+        fetchUserMessages().catch((error: any) => {
+        setIsLoadingMessages(false);
+        setHttpError(error.messages);
+    })
         window.scrollTo(0, 0);
-    }, [authState, currentPage]);
+}, [authState, currentPage]);
 
-    if (isLoadingMessages) {
-        return (
-            <SpinnerLoading />
-        );
-    }
+if (isLoadingMessages) {
+    return (
+        <SpinnerLoading />
+    );
+}
 
-    if (httpError) {
-        return (
-            <div className="container m-5">
-                <p>{httpError}</p>
-            </div>
-        );
-    }
+if (httpError) {
+    return (
+        <div className="container m-5">
+            <p>{httpError}</p>
+        </div>
+    );
+}
 
-    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-    return ();
+return ();
 }
