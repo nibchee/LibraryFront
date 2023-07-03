@@ -38,29 +38,29 @@ export const Messages = () => {
             }
             setIsLoadingMessages(false);
         }
-    }
+
         fetchUserMessages().catch((error: any) => {
-        setIsLoadingMessages(false);
-        setHttpError(error.messages);
-    })
+            setIsLoadingMessages(false);
+            setHttpError(error.messages);
+        })
         window.scrollTo(0, 0);
-}, [authState, currentPage]);
+    }, [authState, currentPage]);
 
-if (isLoadingMessages) {
-    return (
-        <SpinnerLoading />
-    );
-}
+    if (isLoadingMessages) {
+        return (
+            <SpinnerLoading />
+        );
+    }
 
-if (httpError) {
-    return (
-        <div className="container m-5">
-            <p>{httpError}</p>
-        </div>
-    );
-}
+    if (httpError) {
+        return (
+            <div className="container m-5">
+                <p>{httpError}</p>
+            </div>
+        );
+    }
 
-const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-return ();
+    return ();
 }
