@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PostNewMessage } from "./components/PostMessage";
+import { PostNewMessage } from "./components/PostNewMessage";
 export const MessagesPage = () => {
     const [messagesClick, setMessagesClick] = useState(false);
     return (
