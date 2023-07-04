@@ -18,12 +18,12 @@ export const ManageLibraryPage = () => {
                             aria-selected='false'>
                             Add new Book
                         </button>
-                        <button className="nav-link active" id="nav-quantity-tab" data-bs-toggle='tab'
+                        <button className="nav-link" id="nav-quantity-tab" data-bs-toggle='tab'
                             data-bs-target='#nav-quantity' type='button' role='tab' aria-controls="nav-quantity"
                             aria-selected='true'>
                             Change Quantity
                         </button>
-                        <button className="nav-link active" id="nav-messages-tab" data-bs-toggle='tab'
+                        <button className="nav-link" id="nav-messages-tab" data-bs-toggle='tab'
                             data-bs-target='#nav-messages' type='button' role='tab' aria-controls="nav-messages"
                             aria-selected='true'>
                             Messages
@@ -36,7 +36,7 @@ export const ManageLibraryPage = () => {
                     <div className="tab-pane fade show active" id='nav-add-book' role='tabpanel' aria-labelledby="nav-add-book-tab">
                         Add new Book
                     </div>
-                    <div className="tab-pane fade" id='nav-quantity' role='tabpanel' aria-labelledby="nav-quantity-tab">
+                    <div className="tab-pane fade " id='nav-quantity' role='tabpanel' aria-labelledby="nav-quantity-tab">
                         Change Quantity
                     </div>
                     <div className="tab-pane fade" id='nav-messages' role='tabpanel' aria-labelledby="nav-messages-tab">
