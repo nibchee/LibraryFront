@@ -22,6 +22,25 @@ export const AdminMessages = () => {
 
     useEffect(() => {
         const fetchUserMessages = async () => {
+            if (authState && authState.isAuthenticated) {
+                const url = `http://localhost:8080/api/messages/search/findByClosed/?closed=false&page=${currentPage - 1}&size=${messagesPerPage}`;
+                const requestOptions = {
+                    method: 'GET',
+                    header: {
+                        Authorization: `Bearer ${authState.accessToken?.accessToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                };
+                const messageResponse = await fetch(url, requestOptions);
+                if (!messageResponse.ok) {
+                    throw new Error('Something went wrong!');
+                }
+                const messageResponseJson = await messageResponse.json();
+
+                setMessages(messageResponseJson._embedded.messages);
+                setTotalPages(messageResponseJson.page.totalPages);
+            }
+            setIsLoadingMessages(false);
 
         }
         fetchUserMessages().catch((error: any) => {
