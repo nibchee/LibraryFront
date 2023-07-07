@@ -106,6 +106,33 @@ exports.ChangeQuantityOfBook = function (props, key) {
             });
         });
     }
+    function deleteBook() {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function () {
+            var url, requestOptions, updateResponse;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        url = "http://localhost:8080/api/admin/secure/delete/book/?bookId=" + ((_a = props.book) === null || _a === void 0 ? void 0 : _a.id);
+                        requestOptions = {
+                            method: 'DELETE',
+                            headers: {
+                                Authorization: "Bearer " + ((_b = authState === null || authState === void 0 ? void 0 : authState.accessToken) === null || _b === void 0 ? void 0 : _b.accessToken),
+                                'Content-Type': 'application/json'
+                            }
+                        };
+                        return [4 /*yield*/, fetch(url, requestOptions)];
+                    case 1:
+                        updateResponse = _c.sent();
+                        if (!updateResponse.ok) {
+                            throw new Error("Something went wrong");
+                        }
+                        props.deleteBook();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    }
     return (React.createElement("div", { className: "card mt-3 shadow p-3 mb-3 bg-body rounded" },
         React.createElement("div", { className: "row g-0" },
             React.createElement("div", { className: "col-md-2" },
@@ -133,7 +160,7 @@ exports.ChangeQuantityOfBook = function (props, key) {
                         React.createElement("b", null, remaining)))),
             React.createElement("div", { className: "mt-3 col-md-1" },
                 React.createElement("div", { className: "d-flex justify-content-start" },
-                    React.createElement("button", { className: "m-1 btn btn-md btn-danger" }, "Delete"))),
+                    React.createElement("button", { className: "m-1 btn btn-md btn-danger", onClick: deleteBook }, "Delete"))),
             React.createElement("button", { className: "m1 btn btn-md main-color text-white", onClick: increaseQuantity }, "Add Quantity"),
             React.createElement("button", { className: "m1 btn btn-md main-color text-white", onClick: decreaseQuantity }, "Decrease Quantity"))));
 };

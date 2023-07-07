@@ -49,6 +49,7 @@ exports.ChangeQuantityOfBooks = function () {
     var booksPerPage = react_1.useState(5)[0];
     var _e = react_1.useState(0), totalAmountOfBooks = _e[0], setTotalAmountOfBooks = _e[1];
     var _f = react_1.useState(0), totalPages = _f[0], setTotalPages = _f[1];
+    var _g = react_1.useState(false), bookDelete = _g[0], setBookDelete = _g[1];
     react_1.useEffect(function () {
         var fetchBooks = function () { return __awaiter(void 0, void 0, void 0, function () {
             var baseUrl, response, responseJson, responseData, loadedBooks, key;
@@ -91,11 +92,12 @@ exports.ChangeQuantityOfBooks = function () {
             setIsLoading(false);
             setHttpError(error.message);
         });
-    }, [currentPage]);
+    }, [currentPage, bookDelete]);
     var indexOfLastBook = currentPage * booksPerPage;
     var indexOfFirstBook = indexOfLastBook - booksPerPage;
     var lastItem = booksPerPage * currentPage <= totalAmountOfBooks ? booksPerPage * currentPage : totalAmountOfBooks;
     var paginate = function (pageNumber) { return setCurrentPage(pageNumber); };
+    var deleteBook = function () { return setBookDelete(!bookDelete); };
     if (isLoading) {
         return (React.createElement(SpinnerLoading_1.SpinnerLoading, null));
     }
@@ -118,7 +120,7 @@ exports.ChangeQuantityOfBooks = function () {
                     " of ",
                     totalAmountOfBooks,
                     " items:",
-                    React.createElement("p", null, books.map(function (book) { return (React.createElement(ChangeQuantityOfBook_1.ChangeQuantityOfBook, { book: book, key: book.id })); }))))
+                    React.createElement("p", null, books.map(function (book) { return (React.createElement(ChangeQuantityOfBook_1.ChangeQuantityOfBook, { book: book, key: book.id, deleteBook: deleteBook })); }))))
             :
                 React.createElement("h5", null, "Add a book before changing quantity"),
         totalPages > 1 && React.createElement(Pagination_1.Pagination, { currentPage: currentPage, totalPages: totalPages, paginate: paginate })));
