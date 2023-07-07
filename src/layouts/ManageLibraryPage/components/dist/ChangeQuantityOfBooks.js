@@ -39,6 +39,7 @@ exports.__esModule = true;
 exports.ChangeQuantityOfBooks = void 0;
 var react_1 = require("react");
 var SpinnerLoading_1 = require("../../Utils/SpinnerLoading");
+var Pagination_1 = require("../../Utils/Pagination");
 exports.ChangeQuantityOfBooks = function () {
     var _a = react_1.useState([]), books = _a[0], setBooks = _a[1];
     var _b = react_1.useState(true), isLoading = _b[0], setIsLoading = _b[1];
@@ -101,5 +102,23 @@ exports.ChangeQuantityOfBooks = function () {
         return (React.createElement("div", { className: "container m-5" },
             React.createElement("p", null, httpError)));
     }
-    return ();
+    return (React.createElement("div", { className: "container mt-5" },
+        totalAmountOfBooks > 0 ?
+            React.createElement(React.Fragment, null,
+                React.createElement("div", { className: "mt-3" },
+                    React.createElement("h3", null,
+                        "Number of results:(",
+                        totalAmountOfBooks,
+                        ")")),
+                React.createElement("p", null,
+                    indexOfFirstBook + 1,
+                    " to ",
+                    lastItem,
+                    " of ",
+                    totalAmountOfBooks,
+                    " items:",
+                    React.createElement("p", null, books.map(function (book) { return (React.createElement("p", null, "Display different quantity of books.")); }))))
+            :
+                React.createElement("h5", null, "Add a book before changing quantity"),
+        totalPages > 1 && React.createElement(Pagination_1.Pagination, { currentPage: currentPage, totalPages: totalPages, paginate: paginate })));
 };
