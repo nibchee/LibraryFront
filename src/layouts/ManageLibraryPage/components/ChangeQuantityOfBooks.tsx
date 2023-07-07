@@ -77,24 +77,24 @@ export const ChangeQuantityOfBooks = () => {
 
     return (
         <div className="container mt-5">
-           {totalAmountOfBooks>0?
-           <>
-            <div className="mt-3">
-            <h3>Number of results:({totalAmountOfBooks})</h3>
-            </div>
-            <p>
-                {indexOfFirstBook+1} to {lastItem} of {totalAmountOfBooks} items:
-                <p>
-                    {books.map(book=>(
-                        <ChangeQuantityOfBook book={book} key={book.id}/>
-                    ))}
-                </p>
-            </p>
-           </>
-           :
-           <h5>Add a book before changing quantity</h5>
-           }
-           {totalPages>1 && <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate}/>}
+            {totalAmountOfBooks > 0 ?
+                <>
+                    <div className="mt-3">
+                        <h3>Number of results:({totalAmountOfBooks})</h3>
+                    </div>
+                    <p>
+                        {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
+                        <p>
+                            {books.map(book => (
+                                <ChangeQuantityOfBook book={book} key={book.id} />
+                            ))}
+                        </p>
+                    </p>
+                </>
+                :
+                <h5>Add a book before changing quantity</h5>
+            }
+            {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate} />}
         </div>
     );
 }
