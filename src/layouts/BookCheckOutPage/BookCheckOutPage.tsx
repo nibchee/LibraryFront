@@ -33,6 +33,9 @@ export const BookCheckOutPage = () => {
     const [isCheckedOut, setIsCheckedOut] = useState(false);
     const [isLoadingBookCheckOut, setIsLoadingBookCheckedOut] = useState(true);
 
+    //Payment
+    const [displayError, setDisplayError]=useState(false);
+
     //this stores the book id of which we need information eg //locahost/bookcheckout/1
     const bookId = (window.location.pathname).split('/')[2];
 
@@ -186,9 +189,10 @@ export const BookCheckOutPage = () => {
                 const bookCheckedOut = await fetch(url, requestOptions);
 
                 if (!bookCheckedOut.ok) {
+                    setDisplayError(true);
                     throw new Error('Something went wrong!');
                 }
-
+                setDisplayError(false);
                 const bookCheckedOutResponseJson = await bookCheckedOut.json();
                 setIsCheckedOut(bookCheckedOutResponseJson);
             }
@@ -260,6 +264,10 @@ export const BookCheckOutPage = () => {
         <div>
             {/*desktop*/}
             <div className="container d-none d-lg-block">
+                {displayError && <div className='alert alert-danger mt-3' role='alert'>
+                    Please pay outstanding fees and/or return late book(s).
+                </div>
+                }
                 <div className="row mt-5">
                     <div className="col-sm-2 col-md-2">
                         {book?.img ?
@@ -285,6 +293,10 @@ export const BookCheckOutPage = () => {
             </div>
             {/*mobile*/}
             <div className="container d-lg-none mt-5">
+            {displayError && <div className='alert alert-danger mt-3' role='alert'>
+                    Please pay outstanding fees and/or return late book(s).
+                </div>
+                }
                 <div className="d-flex justify-content-center align-items-center">
                     {book?.img ?
                         <img src={book?.img} width='226' height='349' alt='Book' />
