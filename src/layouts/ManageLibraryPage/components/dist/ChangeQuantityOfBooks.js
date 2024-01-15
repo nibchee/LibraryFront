@@ -56,7 +56,7 @@ exports.ChangeQuantityOfBooks = function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        baseUrl = "http://localhost:8080/api/books?page=" + (currentPage - 1) + "&size=" + booksPerPage;
+                        baseUrl = `${process.env.REACT_APP_API}/books?page=` + (currentPage - 1) + "&size=" + booksPerPage;
                         return [4 /*yield*/, fetch(baseUrl)];
                     case 1:
                         response = _a.sent();

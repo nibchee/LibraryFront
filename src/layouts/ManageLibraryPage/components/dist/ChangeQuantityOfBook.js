@@ -57,7 +57,7 @@ exports.ChangeQuantityOfBook = function (props, key) {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        url = "http://localhost:8080/api/admin/secure/increase/book/quantity/?bookId=" + ((_a = props.book) === null || _a === void 0 ? void 0 : _a.id);
+                        url = `${process.env.REACT_APP_API}/admin/secure/increase/book/quantity/?bookId=` + ((_a = props.book) === null || _a === void 0 ? void 0 : _a.id);
                         requestOptions = {
                             method: 'PUT',
                             headers: {
@@ -85,7 +85,7 @@ exports.ChangeQuantityOfBook = function (props, key) {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        url = "http://localhost:8080/api/admin/secure/decrease/book/quantity/?bookId=" + ((_a = props.book) === null || _a === void 0 ? void 0 : _a.id);
+                        url = `${process.env.REACT_APP_API}/admin/secure/decrease/book/quantity/?bookId=` + ((_a = props.book) === null || _a === void 0 ? void 0 : _a.id);
                         requestOptions = {
                             method: 'PUT',
                             headers: {
@@ -113,7 +113,7 @@ exports.ChangeQuantityOfBook = function (props, key) {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        url = "http://localhost:8080/api/admin/secure/delete/book/?bookId=" + ((_a = props.book) === null || _a === void 0 ? void 0 : _a.id);
+                        url = `${process.env.REACT_APP_API}/admin/secure/delete/book/?bookId=` + ((_a = props.book) === null || _a === void 0 ? void 0 : _a.id);
                         requestOptions = {
                             method: 'DELETE',
                             headers: {
